@@ -1,4 +1,4 @@
-# Ace Combat 7 - Interactive Aircraft Statistics Viewer
+# [Ace Combat 7 - Interactive Aircraft Statistics Viewer](https://rolex20.github.io/ace-combat-7-stats-viewer/AC7-Stats.html)
 
 This is a lightweight, single-page web application that provides a comprehensive and interactive data table of all player-usable aircraft in *Ace Combat 7: Skies Unknown*. The application allows players to dynamically sort aircraft statistics to easily compare performance, weaponry, and unlock conditions, serving as a quick and efficient in-game reference tool.
 
@@ -15,7 +15,9 @@ This project serves as a demonstration of core front-end development principles,
 
 ### How to Use
 
-As this is a self-contained application, there is no installation required.
+As this is a self-contained application, there is no installation required, just [here:](https://rolex20.github.io/ace-combat-7-stats-viewer/AC7-Stats.html)
+
+#### Code 
 
 1.  **Download:** Click the `Code` button on this GitHub page and select `Download ZIP`. Unzip the file on your computer.
 2.  **Open:** Simply double-click the `index.html` file (or whatever you have named the HTML file) to open it in any modern web browser like Chrome, Firefox, or Edge.
