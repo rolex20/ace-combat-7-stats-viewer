@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace Combat 7 Aircraft Stats</title>
+
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- All new styles are embedded here -->
+    <style>
+        /* ---- GLOBAL & TYPOGRAPHY STYLES ---- */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #10101f; /* Dark blue-purple background */
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Exo 2', sans-serif;
+            text-align: center;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2.5em;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #b0c4de;
+            font-weight: 300;
+            margin-top: 5px;
+            font-size: 1em;
+        }
+
+        a {
+            color: #61dafb; /* Bright cyan for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* ---- TABLE STYLES ---- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures the border-radius clips the content */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            white-space: nowrap; /* Prevents text wrapping */
+        }
+
+        /* ---- TABLE HEADER ---- */
+        thead th {
+            background-color: #0d1b2a;
+            color: #ffffff;
+            font-weight: 700; /* Bolder font for headers */
+            cursor: pointer;
+            position: relative;
+            border-bottom: 3px solid #61dafb;
+            transition: background-color 0.3s ease;
+        }
+
+        thead th.no-sort {
+            cursor: default;
+        }
+
+        thead th:not(.no-sort):hover {
+            background-color: #1a2f45;
+        }
+
+        /* Sorting arrows */
+        thead th.sort-asc::after,
+        thead th.sort-desc::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        thead th.sort-asc::after {
+            border-bottom-color: #fff; /* White arrow */
+        }
+
+        thead th.sort-desc::after {
+            border-top-color: #fff; /* White arrow */
+        }
+
+        /* Highlight the sorted column header */
+        thead th.sort-asc,
+        thead th.sort-desc {
+            color: #61dafb;
+        }
+
+
+        /* ---- TABLE BODY ---- */
+        tbody tr {
+            background-color: #1a1a2e;
+            border-bottom: 1px solid #2a2a4a;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        tbody tr:last-of-type {
+            border-bottom: none; /* Remove border from the very last row */
+        }
+
+        tbody tr:nth-of-type(even) {
+            background-color: #162233;
+        }
+
+        tbody tr:hover {
+            background-color: #2a3b4d;
+            color: #ffffff;
+        }
+
+        /* Set specific alignment for numeric/data columns for better readability */
+        td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7),
+        td:nth-child(8), td:nth-child(9), td:nth-child(10), td:nth-child(11),
+        td:nth-child(12), td:nth-child(13), td:nth-child(14), td:nth-child(15),
+        td:nth-child(16), td:nth-child(17), td:nth-child(18), td:nth-child(19),
+        td:nth-child(20), td:nth-child(21), td:nth-child(22), td:nth-child(23),
+        td:nth-child(24), td:nth-child(25), td:nth-child(26), td:nth-child(27),
+        td:nth-child(28), td:nth-child(29), td:nth-child(30), td:nth-child(31),
+        td:nth-child(32), td:nth-child(33), td:nth-child(34), td:nth-child(35),
+        td:nth-child(36), td:nth-child(37), td:nth-child(38), td:nth-child(39),
+        td:nth-child(40), td:nth-child(41), td:nth-child(42) {
+            text-align: center;
+        }
+
+        /* Left-align the final 'How to Unlock' column */
+        td:last-child {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ace Combat 7 - Aircraft Statistics</h1>
+        <h2>Based on: <a href="https://segmentnext.com/ace-combat-7-aircrafts/?form=MG0AV3" target="_blank" rel="noopener noreferrer">Ace Combat 7 Aircrafts Unlocking Guide</a></h2>
+        
+        <table id="aircraft-table">
+            <thead>
+                <tr id="table-headers"></tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // Your JavaScript remains unchanged as it works perfectly.
+        const columns = ["#", "Aircraft Name","Type","Speed","Accel.","Health","Stealth","GUN/ PLSL","MSL","FLR","4AAM","4AGM","6AAM","8AAM","8AGM","ADMM","EML","FAEB","GPB","GRKT","HCAA","HPAA","HVAA","IEWS","LAAM","LACM","LAGM","LASM","MGP","MPBM","MSTM","PLSL","QAAM","RKT","SAAM","SASM","SFFS","SOD","TLS","UAV","UGB","XSDB","How to Unlock"];
+        const data = [
+            ["F-16C Fighting Falcon","Fighter",2600,2.1,90,0,2400,70,5,16,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,"Available from the beginning"],
+            ["MiG-21bis Fishbed","Fighter",2600,2.2,80,0,2400,62,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,0,0,0,0,16,18,0,0,0,0,0,0,0,"Complete the mission: ‘Rescue’"],
+            ["F-104C Starfighter","Multirole",2900,2.05,120,0,2400,64,6,0,0,0,0,0,0,0,0,0,20,0,20,0,0,0,0,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,"Complete the mission: ‘Rescue’"],
+            ["MiG-29A Fulcrum","Fighter",2800,2.2,120,0,800,82,5,24,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 65,000 MRP"],
+            ["F-14D Super Tomcat","Fighter",2850,2.35,100,0,2400,84,5,0,0,0,56,0,0,0,0,14,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 70,000 MRP"],
+            ["F-2A","Multirole",2700,2.2,100,1,2400,88,5,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,14,0,0,0,0,0,20,0,0,0,0,0,0,0,0,"Purchase for 105,000 MRP"],
+            ["Mirage 2000-5","Multirole",2750,2.25,120,0,800,86,5,24,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 105,000 MRP"],
+            ["A-10C Thunderbolt II","Attacker",2200,2.2,105,0,4800,100,4,0,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,0,0,0,0,0,0,40,0,"Purchase for 120,000 MRP"],
+            ["Gripen E","Multirole",2850,2.25,100,0,800,96,5,0,0,36,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,"Purchase for 270,000 MRP"],
+            ["MiG-31B Foxhound","Fighter",3450,2.4,120,0,2400,96,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,0,0,0,0,0,0,450,0,0,24,0,0,0,0,0,0,0,"Purchase for 280,000 MRP"],
+            ["F/A-18F Super Hornet","Multirole",2850,2.25,105,1,2400,98,4,0,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,10,0,0,0,0,0,0,0,0,0,"Purchase for 285,000 MRP"],
+            ["Su-33 Flanker-D","Fighter",2900,2.35,120,0,800,98,4,0,0,0,0,0,0,22,0,0,0,0,0,22,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 290,000 MRP"],
+            ["F-15C Eagle","Fighter",3200,2.5,105,0,2400,104,4,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,500,0,0,0,22,0,0,0,0,0,0,"Purchase for 385,000 MRP"],
+            ["F-15J","Fighter",3200,2.5,105,0,2400,104,4,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,12,0,26,0,0,0,0,0,0,0,"Purchase for 385,000 MRP"],
+            ["Su-34 Fullback","Attacker",2700,2.25,120,0,800,112,4,0,32,0,0,0,0,0,0,0,0,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,"Purchase for 390,000 MRP"],
+            ["Rafale M","Multirole",2900,2.3,120,1,800,114,4,0,0,0,0,0,0,0,0,0,0,60,0,0,0,30,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 440,000 MRP"],
+            ["Typhoon","Fighter",2950,2.4,120,1,800,112,4,0,0,0,0,24,0,0,0,0,0,60,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 440,000 MRP"],
+            ["Su-37 Terminator","Fighter",2900,2.25,120,0,800,110,4,32,0,0,0,0,0,0,0,0,0,0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,"Purchase for 550,000 MRP"],
+            ["Su-30M2 Flanker-F2","Fighter",2950,2.35,120,0,800,112,4,32,24,0,0,0,0,0,0,0,0,0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 560,000 MRP"],
+            ["Su-47 Berkut","Multirole",2800,2.4,115,1,800,114,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,30,0,0,0,0,0,30,0,"Purchase for 640,000 MRP"],
+            ["F-15E Strike Eagle","Multirole",3000,2.35,115,0,2400,114,4,0,0,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,20,0,0,0,"Purchase for 680,000 MRP"],
+            ["F-35C Lightning II","Multirole",2800,2.3,125,6,2400,124,3,36,0,0,0,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,0,0,"Purchase for 840,000 MRP"],
+            ["Su-30SM","Multirole",null,null,null,null,800,126,3,0,0,60,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,"Purchase for 850,000 MRP"],
+            ["Su-35S Flanker-E","Fighter",3000,2.3,120,1,800,126,3,0,0,60,0,0,0,0,0,0,0,0,0,0,0,34,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase for 850,000 MRP"],
+            ["YF-23 Black Widow II","Fighter",3200,2.45,125,6,2400,124,3,40,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,34,0,"Purchase for 875,000 MRP"],
+            ["Su-57","Fighter",3050,2.45,130,4,800,140,3,44,0,0,0,0,0,0,0,28,0,0,0,0,0,0,0,0,0,0,0,0,650,0,0,0,0,0,0,0,0,0,0,"Purchase for 900,000 MRP"],
+            ["F-22A Raptor","Fighter",3100,2.4,130,5,2400,136,3,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,48,"Purchase for 920,000 MRP"],
+            ["X-02S Strike Wyvern","Fighter",3300,2.5,120,5,800,140,3,44,0,0,0,0,0,0,0,28,0,0,0,0,0,0,0,0,0,0,0,0,650,0,0,0,0,0,0,0,0,0,0,"Purchase for 2,000,000 MRP after ‘Dark Blue’"],
+            ["F-4E Phantom II","Multirole",2900,2.05,85,0,2400,66,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,12,0,0,0,0,18,0,"Purchase ‘F-4E Phantom II + 3 Skins’ DLC"],
+            ["ADF-11F Raven","Fighter",3000,2.5,143,6,600,150,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,30,24,0,0,"Purchase ‘ADF-11F Raven Set’ DLC"],
+            ["ADF-01 FALKEN","Fighter",3200,2.5,126,6,2400,250,2,56,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,"Purchase ‘ADF-01 FALKEN Set’ DLC"],
+            ["ADFX-01 Morgan","Multirole",2900,2.65,126,1,2400,160,2,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,24,0,0,0,0,0,0,0,0,30,0,0,0,"Purchase ‘ADFX-01 Morgan Set’ DLC"],
+            ["ASF-X Shinden II","Multirole",2870,2.42,143,3,2400,150,3,0,0,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,56,0,0,0,0,0,0,0,0,"Purchase ‘ASF-X Shinden II Set’ DLC"],
+            ["XFA-27","Multirole",2850,2.41,143,3,2400,160,3,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,100,0,0,0,0,0,0,28,0,0,0,0,"Purchase ‘XFA-27 Set’ DLC"],
+            ["CFA-44 Nosferatu","Multirole",3120,2.48,143,3,800,160,3,0,0,0,0,0,102,52,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘CFA-44 Nosferatu Set’ DLC"],
+            ["F-15 S/MTD","Multirole",2985,2.35,120,0,2400,108,4,0,0,0,0,0,0,0,20,0,0,0,22,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘Experimental Aircraft Services’ DLC"],
+            ["F-16XL","Attacker",2600,2.15,98,0,2400,90,5,32,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,0,"Purchase ‘Experimental Aircraft Services’ DLC"],
+            ["FB-22 Stroke Raptor","Attacker",2910,2.23,120,4,2400,136,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,0,0,0,0,0,0,0,0,0,0,0,34,0,0,0,0,52,"Purchase ‘Experimental Aircraft Services’ DLC"],
+            ["F-2A Super Kai","Multirole",2700,2.24,98,2,2400,122,4,0,0,42,0,0,0,0,0,0,0,0,0,0,12,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘Cutting-edge Aircraft Series Set’ DLC"],
+            ["F/A-18F S. Hornet BlkIII","Multirole",2975,2.3,120,3,2400,124,4,48,0,0,0,48,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘Cutting-edge Aircraft Series Set’ DLC"],
+            ["MiG-35D Super Fulcrum","Multirole",3010,2.39,125,3,800,122,3,0,44,54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,"Purchase ‘Cutting-edge Aircraft Series Set’ DLC"],
+            ["DarkStar","Attacker",5750,1.21,125,3,600,140,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,650,0,0,0,26,0,0,0,0,0,52,"Purchase ‘TOP GUN: Maverick Aircraft Set’ DLC"],
+            ["F-14A Tomcat","Fighter",2850,2.35,98,0,2400,104,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,0,0,0,0,0,0,0,0,0,22,0,32,0,0,0,0,0,"Purchase ‘TOP GUN: Maverick Aircraft Set’ DLC"],
+            ["F-14A Tomcat (TGM)","Fighter",3250,2.56,123,0,2400,124,3,0,0,0,0,0,0,0,0,0,0,0,22,0,0,34,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,"Purchase ‘TOP GUN: Maverick Aircraft Set’ DLC"],
+            ["F/A-18E Super Hornet","Multirole",2850,2.25,107,1,2400,110,4,0,40,0,0,0,0,0,0,0,0,60,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘TOP GUN: Maverick Aircraft Set’ DLC"],
+            ["F/A-18E S. Hornet(TGM)","Multirole",2980,2.46,123,1,2400,124,3,0,0,0,0,0,0,0,0,32,0,60,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘TOP GUN: Maverick Aircraft Set’ DLC"],
+            ["5th Gen Fighter (TGM)","Fighter",2860,2.47,134,5,800,124,3,44,0,0,0,0,0,0,0,0,0,60,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Purchase ‘TOP GUN: Maverick Aircraft Set’ DLC"]
+        ];
+
+        let sortColumn = 1;
+        let sortAsc = true;
+
+        const tableHeaders = document.getElementById('table-headers');
+        const tableBody = document.getElementById('table-body');
+
+        function renderTable() {
+            tableBody.innerHTML = '';
+            data.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                
+                const numTd = document.createElement('td');
+                numTd.textContent = index + 1;
+                tr.appendChild(numTd);
+
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell === null ? 'N/A' : cell;
+                    tr.appendChild(td);
+                });
+                tableBody.appendChild(tr);
+            });
+            updateHeaderClasses();
+        }
+
+        function sortData(columnIndex) {
+            if (columnIndex === 0) return;
+
+            if (sortColumn === columnIndex) {
+                sortAsc = !sortAsc;
+            } else {
+                sortColumn = columnIndex;
+                sortAsc = true;
+            }
+
+            const dataIndex = sortColumn - 1;
+
+            data.sort((a, b) => {
+                let valA = a[dataIndex];
+                let valB = b[dataIndex];
+
+                if (valA === null) return 1;
+                if (valB === null) return -1;
+                
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return sortAsc ? valA - valB : valB - valA;
+                } else {
+                    valA = String(valA).toLowerCase();
+                    valB = String(valB).toLowerCase();
+                    if (valA < valB) return sortAsc ? -1 : 1;
+                    if (valA > valB) return sortAsc ? 1 : -1;
+                    return 0;
+                }
+            });
+
+            renderTable();
+        }
+
+        function updateHeaderClasses() {
+            const allTh = tableHeaders.querySelectorAll('th');
+            allTh.forEach((th, index) => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                if (index === sortColumn) {
+                    th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            columns.forEach((col, index) => {
+                const th = document.createElement('th');
+                th.textContent = col;
+                th.addEventListener('click', () => sortData(index));
+                if (index === 0) {
+                    th.classList.add('no-sort');
+                }
+                tableHeaders.appendChild(th);
+            });
+            sortData(1);
+        });
+    </script>
+</body>
+</html>
