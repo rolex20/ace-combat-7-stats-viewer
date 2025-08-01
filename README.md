@@ -15,7 +15,7 @@ This project serves as a demonstration of core front-end development principles,
 
 ### How to Use
 
-As this is a self-contained application, there is no installation required, just [here:](https://rolex20.github.io/ace-combat-7-stats-viewer/AC7-Stats.html)
+As this is a self-contained application, there is no installation required, just [click here:](https://rolex20.github.io/ace-combat-7-stats-viewer/AC7-Stats.html)
 
 #### Code 
 
